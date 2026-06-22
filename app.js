@@ -21,7 +21,7 @@ function dateParts(s){ if(!s) return null; const d = new Date(s + 'T00:00:00'); 
 function fillSelect(el, items, all='Todas'){ if(!el) return; el.innerHTML = `<option value="">${all}</option>` + items.map(x => `<option>${esc(x)}</option>`).join(''); }
 function fillDatalist(el, items){ if(!el) return; el.innerHTML = items.map(x => `<option value="${esc(x)}"></option>`).join(''); }
 function monthOptions(el){ el.innerHTML = `<option value="">Todos</option>` + months.map((m,i)=>`<option value="${i+1}" ${i+1===currentMonth?'selected':''}>${m}</option>`).join(''); }
-function layoutClass(count){ if(count <= 9) return 'premium'; if(count <= 18) return 'medium'; return 'compact'; }
+function layoutClass(count){ if(count <= 9) return 'premium'; if(count <= 16) return 'comfortable'; if(count <= 24) return 'medium'; return 'compact'; }
 function chunk(arr, size){ return Array.from({length: Math.ceil(arr.length / size)}, (_, i) => arr.slice(i*size, i*size + size)); }
 function monthShort(n){ return months[n-1].slice(0,3).toUpperCase(); }
 
@@ -107,7 +107,7 @@ function summaryCards(data, type){
 }
 function celebrationCard(x, type){
   const p = dateParts(type === 'a' ? x.ingreso : x.nac), val = type === 'a' ? yearsAt(x.ingreso) : ageAt(x.nac);
-  return `<div class="celebration"><div class="day"><b>${String(p.day).padStart(2,'0')}</b><span>${monthShort(p.month)}</span></div><div class="who"><b>${esc(x.nombre)}</b><small>${esc(x.puesto)}</small><small>${esc(x.tienda)}</small></div><div class="years"><b>${val} ${val==1?'año':'años'}</b><small>${type==='a'?'en la marca':'edad'}</small></div></div>`;
+  return `<div class="celebration"><div class="day"><b>${String(p.day).padStart(2,'0')}</b><span>${monthShort(p.month)}</span></div><div class="who"><b title="${esc(x.nombre)}">${esc(x.nombre)}</b><small>${esc(x.puesto)}</small><small>${esc(x.tienda)}</small></div><div class="years"><b>${val} ${val==1?'año':'años'}</b><small>${type==='a'?'en la marca':'edad'}</small></div></div>`;
 }
 function renderCeleb(type){
   const pre = type === 'a' ? 'a' : 'b';
