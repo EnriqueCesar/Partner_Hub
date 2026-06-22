@@ -9,3 +9,6 @@ Ajustes principales:
 - Aniversarios: día, partner, tienda y años en la marca.
 - Cumpleaños: día, partner, tienda y edad.
 - Data actualizada desde Query con campos NUM_EMP, NOMBRE, F_INGRESO, NOM_CCOSTO, TURNO, NOM_PUESTO, SEXO, F.NAC, cc, DM y REGION.
+
+
+Partner Hub 2.0 patches applied.

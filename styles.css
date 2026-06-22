@@ -24,3 +24,12 @@
   .celebration{min-height:36px!important;grid-template-columns:45px 1fr 72px!important;border:1px solid #c8ded4!important;border-radius:7px!important;background:rgba(255,255,255,.94)!important;box-shadow:none!important;color:#0c2d21!important}
   .celebration .day b{font-size:18px!important;color:#006241!important}.celebration .day span{font-size:7.5px!important;color:#006241!important}.celebration .who{padding:4px 6px!important}.celebration .who b{font-size:8.7px!important;line-height:1.05!important;color:#003d2a!important}.celebration .who small{font-size:7.2px!important;margin-top:2px!important;color:#425a50!important}.celebration .years{padding-right:7px!important}.celebration .years b{font-size:8.4px!important;color:#006241!important}.celebration .years small{font-size:6.7px!important;color:#425a50!important}.miniSeal{right:5vw!important;bottom:3.1vh!important;z-index:4!important}.miniSeal span{width:34px!important;height:34px!important;font-size:17px!important;box-shadow:0 0 0 4px #eaf4ef!important}.miniSeal b{font-size:12px!important;background:rgba(255,255,255,.78)!important;padding:2px 7px!important;color:#006241!important}
 }
+
+/* Partner Hub 2.0 patches */
+.celebration-card{padding:8px!important;margin-bottom:4px!important}
+.slide.premium .celebration-card{font-size:1rem}
+.slide.medium .celebration-card{font-size:.92rem}
+.slide.compact .celebration-card{font-size:.84rem}
+@media print{
+  .export-page{height:auto!important;min-height:0!important}
+}
