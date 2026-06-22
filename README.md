@@ -2,11 +2,11 @@
 
 PWA lista para GitHub Pages.
 
-## Incluye
-- Partner: dashboard por Región, DM y Tienda con jerarquía y detalle de partner.
-- Aniversarios: filtros Región, DM y Mes; calcula años con F_INGRESO.
-- Cumpleaños: filtros Región, DM y Mes; muestra día del mes sin edad.
-- Exportación mediante imprimir/guardar PDF usando plantilla visual.
+Incluye:
+- Partner: filtros por Región, DM, Tienda, Posición y búsqueda.
+- Dashboard: partners, tiendas, DM, posiciones, % mujeres/hombres y rango de edad.
+- Aniversarios: Región, DM, Mes y búsqueda. Calcula años en la marca con F_INGRESO.
+- Cumpleaños: Región, DM, Mes y búsqueda. Muestra día y edad con F.NAC.
+- Exportación / impresión horizontal para celebraciones.
 
-## Publicación
-Sube el contenido de esta carpeta a GitHub Pages y activa Pages desde Settings > Pages > main / root.
+Los datos activos se toman de: NUM_EMP, NOMBRE, F_INGRESO, NOM_CCOSTO, TURNO, NOM_PUESTO, SEXO, F.NAC, cc, DM y REGION.
