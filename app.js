@@ -21,7 +21,7 @@ function dateParts(s){ if(!s) return null; const d = new Date(s + 'T00:00:00'); 
 function fillSelect(el, items, all='Todas'){ if(!el) return; el.innerHTML = `<option value="">${all}</option>` + items.map(x => `<option>${esc(x)}</option>`).join(''); }
 function fillDatalist(el, items){ if(!el) return; el.innerHTML = items.map(x => `<option value="${esc(x)}"></option>`).join(''); }
 function monthOptions(el){ el.innerHTML = `<option value="">Todos</option>` + months.map((m,i)=>`<option value="${i+1}" ${i+1===currentMonth?'selected':''}>${m}</option>`).join(''); }
-function layoutClass(count){ if(count <= 9) return 'premium'; if(count <= 16) return 'comfortable'; if(count <= 24) return 'medium'; return 'compact'; }
+function layoutClass(count){ if(count <= 8) return 'premium'; if(count <= 16) return 'sixteen'; if(count <= 24) return 'medium'; return 'compact'; }
 function chunk(arr, size){ return Array.from({length: Math.ceil(arr.length / size)}, (_, i) => arr.slice(i*size, i*size + size)); }
 function monthShort(n){ return months[n-1].slice(0,3).toUpperCase(); }
 
@@ -118,13 +118,12 @@ function renderCeleb(type){
   const monthTitle = monthVal ? months[+monthVal-1] : 'Todo el año';
   const title = type === 'a' ? 'Celebramos tu Trayectoria' : 'Que tengas un día extraordinario';
   const subtitle = type === 'a' ? 'Gracias por crecer con nosotros' : 'Gracias por inspirarnos cada día';
-  $(pre+'Slides').innerHTML = pages.map((arr, i) => {
+  $(pre+'Slides').innerHTML = summaryCards(data, type).replace('summary-cards','capture-insights') + pages.map((arr, i) => {
     const pageClass = layoutClass(arr.length);
     const empty = `<div class="celebration empty"><div class="who"><b>Sin registros para este filtro</b><small>Ajusta Región, DM, Tienda o Mes.</small></div></div>`;
     return `<div class="slide ${type==='a'?'anniv':'birth'} ${pageClass}">
       <img class="templateImg" src="assets/${type==='a'?'anniversary':'birthday'}-template.png" alt="Plantilla">
       <h3>${esc(monthTitle)}</h3><div class="slideMessage"><b>${title}</b><span>${subtitle}</span></div>
-      ${summaryCards(data, type)}
       <div class="celebrationList">${arr.map(x=>celebrationCard(x,type)).join('') || empty}</div>
       <div class="miniSeal ${type==='a'?'annivSeal':'birthdaySeal'}"><span>${type==='a'?'🏆':'🎂'}</span><b>${type==='a'?'Celebramos tu Trayectoria':'Cumpleaños'}</b></div>
       <div class="pageNumber">Página ${i+1} de ${totalPages}</div>
