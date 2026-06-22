@@ -1,14 +1,18 @@
-# Partner Hub CN v6
+# Partner Hub 2.0 – Cultura & Reconocimiento
 
-PWA lista para GitHub Pages.
+Versión final lista para GitHub Pages / PWA.
 
-Ajustes principales:
-- Exportación horizontal con plantilla visual conservada mediante imagen real en impresión.
-- Filtro Mes con opción Todos en Aniversarios y Cumpleaños.
-- Recuadros compactos y mejor distribuidos para priorizar partners.
-- Aniversarios: día, partner, tienda y años en la marca.
-- Cumpleaños: día, partner, tienda y edad.
-- Data actualizada desde Query con campos NUM_EMP, NOMBRE, F_INGRESO, NOM_CCOSTO, TURNO, NOM_PUESTO, SEXO, F.NAC, cc, DM y REGION.
+## Actualización incluida
+- Layout adaptativo: premium, medium y compact según cantidad de registros.
+- Paginación automática cada 30 registros.
+- Exportación horizontal multipágina con plantilla Coffee Connection.
+- Dashboard ejecutivo dinámico en Aniversarios y Cumpleaños.
+- Buscador inteligente de tiendas con autocompletado.
+- Tarjetas compactas con Nombre, Puesto, Tienda y Edad/Años.
+- Mensajes actualizados:
+  - 🏆 Celebramos tu Trayectoria
+  - 🎂 Que tengas un día extraordinario / Gracias por inspirarnos cada día
+- PWA con caché actualizado.
 
-
-Partner Hub 2.0 patches applied.
+## Campos usados
+NUM_EMP, NOMBRE, F_INGRESO, NOM_CCOSTO, TURNO, NOM_PUESTO, SEXO, F.NAC, cc, DM y REGION.
