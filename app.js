@@ -6,6 +6,7 @@ const R = (window.PARTNER_ROWS || [])
 const MAX_REGISTROS = 30;
 const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const today = new Date();
+today.setHours(0,0,0,0);
 const currentMonth = today.getMonth() + 1;
 const currentYear = today.getFullYear();
 const $ = id => document.getElementById(id);
@@ -40,7 +41,7 @@ function init(){
   ['pRegion','pDM','pStore','pRole','pSearch','aRegion','aDM','aStore','aMonth','aSearch','bRegion','bDM','bStore','bMonth','bSearch']
     .forEach(id => $(id)?.addEventListener('input', renderAll));
   renderAll();
-  if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js?v=7.0.2');
 }
 
 function cascade(prefix){
@@ -89,24 +90,26 @@ function renderPartner(){
 }
 function personCard(x){ return `<div class="person" onclick='showDetail(${JSON.stringify(x).replaceAll("'","&#39;")})'><div><b>${esc(x.nombre)}</b><small>${esc(x.num)} · ${esc(x.puesto)} · ${esc(x.tienda)}</small></div><span class="badge">${esc(x.turno)}</span></div>`; }
 function yearsAt(s){ const p = dateParts(s); if(!p) return 0; let y = currentYear - p.year; const anniv = new Date(currentYear, p.month-1, p.day); if(today < anniv) y--; return Math.max(0, y); }
+function anniversaryYears(s){ const p = dateParts(s); if(!p) return 0; const y = currentYear - p.year; return y >= 1 ? y : 0; }
+function birthdayAge(s){ const p = dateParts(s); if(!p) return ''; const a = currentYear - p.year; return Math.max(0, a); }
 function ageAt(s){ const p = dateParts(s); if(!p) return ''; let a = currentYear - p.year; const bd = new Date(currentYear, p.month-1, p.day); if(today < bd) a--; return Math.max(0, a); }
 function filteredCelebrations(type){
   const pre = type === 'a' ? 'a' : 'b'; cascade(pre);
   const month = $(pre+'Month').value, search = clean($(pre+'Search').value);
   return filterBase(pre).filter(x => {
     const p = dateParts(type === 'a' ? x.ingreso : x.nac);
-    return p && (!month || p.month === +month) && (!search || clean(`${x.nombre} ${x.tienda} ${x.puesto} ${x.num}`).includes(search));
+    return p && (!month || p.month === +month) && (type !== 'a' || anniversaryYears(x.ingreso) >= 1) && (!search || clean(`${x.nombre} ${x.tienda} ${x.puesto} ${x.num}`).includes(search));
   }).sort((x,y) => { const px = dateParts(type==='a'?x.ingreso:x.nac), py = dateParts(type==='a'?y.ingreso:y.nac); return px.month-py.month || px.day-py.day || x.nombre.localeCompare(y.nombre,'es'); });
 }
 function summaryCards(data, type){
   const stores = uniq(data.map(x=>x.tienda)).length;
   const partners = data.length;
   const dms = uniq(data.map(x=>x.dm)).length;
-  const avg = data.length ? Math.round(data.reduce((s,x)=>s+(type==='a'?yearsAt(x.ingreso):Number(ageAt(x.nac)||0)),0)/data.length) : 0;
+  const avg = data.length ? Math.round(data.reduce((s,x)=>s+(type==='a'?anniversaryYears(x.ingreso):Number(birthdayAge(x.nac)||0)),0)/data.length) : 0;
   return `<div class="summary-cards"><div><b>${type==='a'?'🏆':'🎂'}</b><span>${partners}</span><small>${type==='a'?'Aniversarios':'Cumpleaños'}</small></div><div><b>🏪</b><span>${stores}</span><small>Tiendas</small></div><div><b>👥</b><span>${dms}</span><small>DM</small></div><div><b>${type==='a'?'⭐':'🎈'}</b><span>${avg}</span><small>${type==='a'?'Años prom.':'Edad prom.'}</small></div></div>`;
 }
 function celebrationCard(x, type){
-  const p = dateParts(type === 'a' ? x.ingreso : x.nac), val = type === 'a' ? yearsAt(x.ingreso) : ageAt(x.nac);
+  const p = dateParts(type === 'a' ? x.ingreso : x.nac), val = type === 'a' ? anniversaryYears(x.ingreso) : birthdayAge(x.nac);
   return `<div class="celebration"><div class="day"><b>${String(p.day).padStart(2,'0')}</b><span>${monthShort(p.month)}</span></div><div class="who"><b title="${esc(x.nombre)}">${esc(x.nombre)}</b><small>${esc(x.puesto)}</small><small>${esc(x.tienda)}</small></div><div class="years"><b>${val} ${val==1?'año':'años'}</b><small>${type==='a'?'en la marca':'edad'}</small></div></div>`;
 }
 function renderCeleb(type){

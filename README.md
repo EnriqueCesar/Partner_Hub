@@ -16,3 +16,8 @@ Versión final lista para GitHub Pages / PWA.
 
 ## Campos usados
 NUM_EMP, NOMBRE, F_INGRESO, NOM_CCOSTO, TURNO, NOM_PUESTO, SEXO, F.NAC, cc, DM y REGION.
+
+
+## Corrección auditoría 7.0.1
+- Aniversarios muestran el año que se cumple durante el mes/fecha seleccionado.
+- Registros con 0 años se excluyen de Aniversarios para evitar mostrar altas que aún no cumplen 1 año.
